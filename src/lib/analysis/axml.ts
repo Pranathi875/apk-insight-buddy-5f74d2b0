@@ -52,7 +52,10 @@ export function parseAxml(bytes: Uint8Array): AxmlNode {
   const root: AxmlNode = { name: "#document", namespace: null, attributes: [], children: [] };
   const stack: AxmlNode[] = [root];
 
-  let offset = view.getUint16(4, true) || 8;
+  // ResChunk_header layout: type (u16), headerSize (u16), size (u32).
+  // The first sub-chunk starts right after the XML chunk header.
+  const rootHeaderSize = view.getUint16(2, true);
+  let offset = rootHeaderSize >= 8 && rootHeaderSize < bytes.length ? rootHeaderSize : 8;
   while (offset + 8 <= bytes.length) {
     const chunkType = view.getUint16(offset, true);
     const headerSize = view.getUint16(offset + 2, true);
