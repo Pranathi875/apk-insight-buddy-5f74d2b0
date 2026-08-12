@@ -5,11 +5,16 @@
  * diffed, rendered and (in sanitized form) handed to an LLM.
  */
 
-export type Severity = "INFO" | "LOW" | "MEDIUM" | "HIGH";
+export type Severity = "INFO" | "LOW" | "MEDIUM" | "HIGH" | "CRITICAL";
 
 export type Confidence = "LOW" | "MEDIUM" | "HIGH";
 
-export type DetectionState = "DETECTED" | "NOT_DETECTED" | "UNCERTAIN";
+/**
+ * NOT_ANALYZED is deliberately distinct from NOT_DETECTED: the first means the
+ * evidence source never ran, the second means it ran and found nothing.
+ */
+export type DetectionState = "DETECTED" | "NOT_DETECTED" | "UNCERTAIN" | "NOT_ANALYZED";
+
 
 export type FindingCategory =
   | "MANIFEST"
