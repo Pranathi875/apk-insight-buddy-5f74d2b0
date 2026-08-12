@@ -88,9 +88,12 @@ export interface PermissionInfo {
   whyItMatters: string;
   commonlyExpected: boolean;
   severityHint: Severity;
+  /** Non-judgemental note on whether the request looks routine or wide. */
+  assessment: string;
   maxSdkVersion: number | null;
   declaredOnly: boolean;
 }
+
 
 export interface ComponentInfo {
   type: "activity" | "activity-alias" | "service" | "receiver" | "provider";
