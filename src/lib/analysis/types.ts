@@ -39,8 +39,12 @@ export interface Finding {
   confidence: Confidence;
   title: string;
   description: string;
+  /** What the configuration realistically means for the app or its users. */
+  impact: string;
   recommendation: string;
   evidence: Evidence[];
+  /** Distinct evidence sources this finding was derived from. */
+  analysisSources: string[];
   /** Score deduction applied by the scoring engine, per target score. */
   weight: number;
   scoreTarget: ScoreKey;
@@ -55,14 +59,26 @@ export interface ScoreContribution {
   deduction: number;
 }
 
+/**
+ * COMPLETE  — every evidence source this score depends on was analyzed.
+ * PARTIAL   — some evidence was missing; the value is a lower bound.
+ * UNAVAILABLE — required evidence was absent; no numeric score is reported.
+ */
+export type ScoreStatus = "COMPLETE" | "PARTIAL" | "UNAVAILABLE";
+
 export interface Score {
   key: ScoreKey;
   label: string;
-  value: number;
+  /** null when status is UNAVAILABLE — rendered as "N/A", never as 100. */
+  value: number | null;
   start: number;
+  status: ScoreStatus;
+  /** Why the score is partial or unavailable. */
+  statusReason: string | null;
   contributions: ScoreContribution[];
   methodology: string;
 }
+
 
 export interface PermissionInfo {
   name: string;
