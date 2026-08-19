@@ -1,5 +1,5 @@
 # APK Insight Buddy
- "https://vercel.com/pranathi5/app-gaurd-apk-analyzer-buddy" 
+ "https://app-gaurd-apk-analyzer-buddy.vercel.app/" 
 Continue working on the existing AppGuard project. Do NOT create a new project, do NOT merge another project, and do NOT replace the existing working analysis pipeline or UI unnecessarily.
 
 The current project already accepts an APK and produces an analysis report with:
